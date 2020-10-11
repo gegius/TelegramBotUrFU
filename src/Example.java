@@ -54,7 +54,7 @@ public class Example extends TelegramLongPollingBot {
         }
         if (update.hasMessage() && update.getMessage().getText().equals("Пошёл нахуй")) {
             // Set variables
-            String message_text = "Сам иди нахуй урод тупой";
+            String message_text = "Сам иди нахуй урод о тупой";
             long chat_id = update.getMessage().getChatId();
 
             SendMessage message = new SendMessage() // Create a message object object
