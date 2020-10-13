@@ -89,7 +89,7 @@ public class Example extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add(new KeyboardButton("ЕБАТЬ КНОПКА"));
+        keyboardFirstRow.add(new KeyboardButton("ЕБАТЬ 0 КНОПКА"));
 
         // Вторая строчка клавиатуры
         KeyboardRow keyboardSecondRow = new KeyboardRow();
