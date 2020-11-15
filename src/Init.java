@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Example extends TelegramLongPollingBot {
+public class Init extends TelegramLongPollingBot {
 
     public static void main(String[] args) {
         // Initialize Api Context
@@ -22,7 +22,7 @@ public class Example extends TelegramLongPollingBot {
 
         // Register our bot
         try {
-            botsApi.registerBot(new Example());
+            botsApi.registerBot(new Init());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
@@ -46,27 +46,12 @@ public class Example extends TelegramLongPollingBot {
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
             // Set variables
-            String message_text = "Hi, man, I'm RPG bot! Right now I can't do anything, but soon I'll work!";
+            String message_text = "Привет! Я бот для игры в RPG. Если хочешь начать - нажми продолжить или начать новую игру!";
             long chat_id = update.getMessage().getChatId();
 
             SendMessage message = new SendMessage() // Create a message object object
                     .setChatId(chat_id)
                     .setText(message_text);
-            try {
-                execute(message); // Sending our message object to user
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }
-        if (update.hasMessage() && update.getMessage().getText().equals("Пошёл привет")) {
-            // Set variables
-            String message_text = "Сам иди привет привет привет";
-            long chat_id = update.getMessage().getChatId();
-
-            SendMessage message = new SendMessage() // Create a message object object
-                    .setChatId(chat_id)
-                    .setText(message_text);
-            setButtons(message);
             try {
                 execute(message); // Sending our message object to user
             } catch (TelegramApiException e) {
@@ -89,9 +74,8 @@ public class Example extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add(new KeyboardButton("Пошел привет"));
-        keyboardFirstRow.add(new KeyboardButton("Пошёл привет"));
-        keyboardFirstRow.add(new KeyboardButton("А ВОТ ЕЩЁ ОДНА Ы"));
+        keyboardFirstRow.add(new KeyboardButton("Начать заново"));
+        keyboardFirstRow.add(new KeyboardButton("Продлжить игру"));
         // Вторая строчка клавиатуры
         //KeyboardRow keyboardSecondRow = new KeyboardRow();
 
