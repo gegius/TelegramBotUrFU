@@ -58,9 +58,9 @@ public class Example extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
         }
-        if (update.hasMessage() && update.getMessage().getText().equals("Пошёл нахуй")) {
+        if (update.hasMessage() && update.getMessage().getText().equals("Пошёл привет")) {
             // Set variables
-            String message_text = "Сам иди нахуй урод тупой";
+            String message_text = "Сам иди привет привет привет";
             long chat_id = update.getMessage().getChatId();
 
             SendMessage message = new SendMessage() // Create a message object object
@@ -89,7 +89,8 @@ public class Example extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add(new KeyboardButton("Пошёл нахуй"));
+        keyboardFirstRow.add(new KeyboardButton("Пошел привет"));
+        keyboardFirstRow.add(new KeyboardButton("Пошёл привет"));
         keyboardFirstRow.add(new KeyboardButton("А ВОТ ЕЩЁ ОДНА Ы"));
         // Вторая строчка клавиатуры
         //KeyboardRow keyboardSecondRow = new KeyboardRow();
