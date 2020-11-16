@@ -79,15 +79,15 @@ public class Init extends TelegramLongPollingBot {
 
         if(command.equals("/create_hero")) {
             List<String> buttons = Arrays.asList("Маг", "Воин");
-          Buttons.createHeroBut(sendMessage, buttons, 2);
+          Buttons.createHeroBut(sendMessage, buttons);
         }
         if(command.equals("/start")) {
             List<String> buttons = Arrays.asList("Продолжить", "/create_hero");
-            Buttons.createHeroBut(sendMessage, buttons, 2);
+            Buttons.createHeroBut(sendMessage, buttons);
         }
         if(command.equals("Воин")){
             List<String> buttons = Arrays.asList("Stats", "Info");
-            Buttons.createHeroBut(sendMessage, buttons, 2);
+            Buttons.createHeroBut(sendMessage, buttons);
         }
         try {
             execute(sendMessage);

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ButtonBuilder extends Init {
 
-    public synchronized void createHeroBut(SendMessage sendMessage, List<String> content, int count) {
+    public synchronized void createHeroBut(SendMessage sendMessage, List<String> content) {
 
 // Создаем клавиуатуру
 
@@ -27,7 +27,7 @@ public class ButtonBuilder extends Init {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
 
-        if(count > 0) {
+        if(content.size() > 0) {
 
             // Первая строчка клавиатуры
 
@@ -37,11 +37,11 @@ public class ButtonBuilder extends Init {
 
             keyboardFirstRow.add(new KeyboardButton(content.get(0)));
 
-            if(count > 1){
+            if(content.size() > 1){
                 keyboardFirstRow.add(new KeyboardButton(content.get(1)));
             }
 
-            if(count > 2){
+            if(content.size() > 2){
                 keyboardFirstRow.add(new KeyboardButton(content.get(2)));
             }
             keyboard.add(keyboardFirstRow);
