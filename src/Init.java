@@ -95,8 +95,4 @@ public class Init extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
-
-
-
-
 }
