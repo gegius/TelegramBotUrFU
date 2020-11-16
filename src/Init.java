@@ -17,8 +17,6 @@ import java.util.List;
 
 public class Init extends TelegramLongPollingBot {
 
-    private final GameLogic game = new GameLogic();
-
     public static void main(String[] args) {
         // Initialize Api Context
         ApiContextInitializer.init();
@@ -48,7 +46,7 @@ public class Init extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
+        GameLogic game = new GameLogic();
         String message = update.getMessage().getText();
         String chatId = update.getMessage().getChatId().toString();
         game.Game(message, chatId);
