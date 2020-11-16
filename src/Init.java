@@ -4,13 +4,16 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+
 
 public class Init extends TelegramLongPollingBot {
 
@@ -71,14 +74,20 @@ public class Init extends TelegramLongPollingBot {
 
         //смотрим что ответил наш чел и даем ему соответствующие кнопки
 
+        ButtonBuilder Buttons = new ButtonBuilder();
+
+
         if(command.equals("/create_hero")) {
-          createHeroBut(sendMessage, "Маг", "Воин");
+            List<String> buttons = Arrays.asList("Маг", "Воин");
+          Buttons.createHeroBut(sendMessage, buttons, 2);
         }
         if(command.equals("/start")) {
-            createHeroBut(sendMessage, "Продолжить", "/create_hero");
+            List<String> buttons = Arrays.asList("Продолжить", "/create_hero");
+            Buttons.createHeroBut(sendMessage, buttons, 2);
         }
         if(command.equals("Воин")){
-            createHeroBut(sendMessage, "Задать статы", "Задать описание");
+            List<String> buttons = Arrays.asList("Stats", "Info");
+            Buttons.createHeroBut(sendMessage, buttons, 2);
         }
         try {
             execute(sendMessage);
@@ -88,48 +97,6 @@ public class Init extends TelegramLongPollingBot {
     }
 
 
-    public synchronized void createHeroBut(SendMessage sendMessage, String butName1, String butName2) {
 
-// Создаем клавиуатуру
-
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        sendMessage.setReplyMarkup(replyKeyboardMarkup);
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResizeKeyboard(true);
-        replyKeyboardMarkup.setOneTimeKeyboard(true);
-
-
-// Создаем список строк клавиатуры
-
-        List<KeyboardRow> keyboard = new ArrayList<>();
-
-
-// Первая строчка клавиатуры
-
-        KeyboardRow keyboardFirstRow = new KeyboardRow();
-
-// Добавляем кнопки в первую строчку клавиатуры и задаем название
-
-        keyboardFirstRow.add(new KeyboardButton(butName1));
-
-
-// Вторая строчка клавиатуры
-
-        KeyboardRow keyboardSecondRow = new KeyboardRow();
-
-// Добавляем кнопки во вторую строчку клавиатуры и зажаем название
-
-        keyboardSecondRow.add(new KeyboardButton(butName2));
-
-
-// Добавляем все строчки клавиатуры в список
-
-        keyboard.add(keyboardFirstRow);
-        keyboard.add(keyboardSecondRow);
-
-// и устанваливаем этот список нашей клавиатуре
-
-        replyKeyboardMarkup.setKeyboard(keyboard);
-    }
 
 }
