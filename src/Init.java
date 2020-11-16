@@ -17,6 +17,8 @@ import java.util.List;
 
 public class Init extends TelegramLongPollingBot {
 
+    private final GameLogic game = new GameLogic();
+
     public static void main(String[] args) {
         // Initialize Api Context
         ApiContextInitializer.init();
@@ -46,53 +48,14 @@ public class Init extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+
         String message = update.getMessage().getText();
-        if(message.equals("/create_hero")) {
-            sendMsg(update.getMessage().getChatId().toString(), "Выберите класс!", "/create_hero");
-        }
-        if(message.equals("/start")) {
-            sendMsg(update.getMessage().getChatId().toString(), "Здравствуйте, это бот для РПГ игры, пожалуйста," +
-                    "продолжите свою игру или начните сначала", "/start");
-        }
-        if(message.equals("Воин")) {
-            sendMsg(update.getMessage().getChatId().toString(), "Ваш класс Воин!", "Воин");
-        }
+        String chatId = update.getMessage().getChatId().toString();
+        game.Game(message, chatId);
     }
 
 
-    /**
-     * Метод для настройки сообщения и его отправки.
-     * @param chatId id чата
-     * @param s Строка, которую необходимот отправить в качестве сообщения.
-     */
-
-    public synchronized void sendMsg(String chatId, String s, String command) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(chatId);
-        sendMessage.setText(s);
-
-        //смотрим что ответил наш чел и даем ему соответствующие кнопки
-
-        ButtonBuilder Buttons = new ButtonBuilder();
 
 
-        if(command.equals("/create_hero")) {
-            List<String> buttons = Arrays.asList("Маг", "Воин");
-          Buttons.createHeroBut(sendMessage, buttons);
-        }
-        if(command.equals("/start")) {
-            List<String> buttons = Arrays.asList("Продолжить", "/create_hero");
-            Buttons.createHeroBut(sendMessage, buttons);
-        }
-        if(command.equals("Воин")){
-            List<String> buttons = Arrays.asList("Stats", "Info");
-            Buttons.createHeroBut(sendMessage, buttons);
-        }
-        try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
