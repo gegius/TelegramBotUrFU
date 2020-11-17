@@ -25,12 +25,12 @@ public class GameLogic extends Init{
         }
         if(command.equals("Воин")) {
             if(HeroClass.equals("")){
-                sendMsg(chatId, "Ваш класс Воин!" + "https://avavatar.ru/images/full/14/KGtFONZIC4qEAahj.jpg", "Воин");
+                sendMsg(chatId, "Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP", "Воин");
             }
         }
         if(command.equals("Маг")) {
             if(HeroClass.equals("")){
-                sendMsg(chatId, "Ваш класс Маг!" + "https://author.today/content/2020/01/25/w/a6891a11611b460aab040331de2fef94.jpg", "Маг");
+                sendMsg(chatId, "Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE", "Маг");
             }
         }
     }
