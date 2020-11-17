@@ -48,26 +48,38 @@ public class ButtonBuilder extends Init {
         }
 
 // Вторая строчка клавиатуры
-
-        //KeyboardRow keyboardSecondRow = new KeyboardRow();
+        if(content.size() > 3) {
+            KeyboardRow keyboardSecondRow = new KeyboardRow();
 
 // Добавляем кнопки во вторую строчку клавиатуры и зажаем название
+            keyboardSecondRow.add(new KeyboardButton(content.get(3)));
 
-        //keyboardSecondRow.add(new KeyboardButton(butName2));
+            if(content.size() > 4){
+                keyboardSecondRow.add(new KeyboardButton(content.get(4)));
+            }
+
+            if(content.size() > 5){
+                keyboardSecondRow.add(new KeyboardButton(content.get(5)));
+            }
+            keyboard.add(keyboardSecondRow);
+        }
 
 // Вторая строчка клавиатуры
-
-        //KeyboardRow keyboardThirdRow = new KeyboardRow();
+        if(content.size() > 6) {
+            KeyboardRow keyboardThirdRow = new KeyboardRow();
 
 // Добавляем кнопки во вторую строчку клавиатуры и зажаем название
+            keyboardThirdRow.add(new KeyboardButton(content.get(6)));
 
-        //keyboardThirdRow.add(new KeyboardButton(butName3));
+            if(content.size() > 7){
+                keyboardThirdRow.add(new KeyboardButton(content.get(7)));
+            }
 
-// Добавляем все строчки клавиатуры в список
-
-        //keyboard.add(keyboardFirstRow);
-        //keyboard.add(keyboardSecondRow);
-        //keyboard.add(keyboardThirdRow);
+            if(content.size() > 8){
+                keyboardThirdRow.add(new KeyboardButton(content.get(8)));
+            }
+            keyboard.add(keyboardThirdRow);
+        }
 
 // и устанваливаем этот список нашей клавиатуре
 
