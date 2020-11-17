@@ -1,4 +1,5 @@
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -6,6 +7,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
+//конечный автомат
 
 public class GameLogic extends Init{
 
@@ -23,12 +25,12 @@ public class GameLogic extends Init{
         }
         if(command.equals("Воин")) {
             if(HeroClass.equals("")){
-                sendMsg(chatId, "Ваш класс Воин!", "Воин");
+                sendMsg(chatId, "Ваш класс Воин!" + "https://avavatar.ru/images/full/14/KGtFONZIC4qEAahj.jpg", "Воин");
             }
         }
         if(command.equals("Маг")) {
             if(HeroClass.equals("")){
-                sendMsg(chatId, "Ваш класс Маг!", "Маг");
+                sendMsg(chatId, "Ваш класс Маг!" + "https://author.today/content/2020/01/25/w/a6891a11611b460aab040331de2fef94.jpg", "Маг");
             }
         }
     }
@@ -48,7 +50,7 @@ public class GameLogic extends Init{
         //смотрим что ответил наш чел и даем ему соответствующие кнопки
 
         ButtonBuilder Buttons = new ButtonBuilder();
-        List<String> mainMenu = Arrays.asList("Inventory", "Stats", "Leave", "Help");
+        List<String> mainMenu = Arrays.asList("Inventory", "Stats", "Leave", "Help", "asd", "asdsd", "183");
 
 
         if(command.equals("/create_hero")) {
