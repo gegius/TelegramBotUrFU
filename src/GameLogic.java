@@ -48,8 +48,7 @@ public class GameLogic extends Init{
             }
         }
 
-        if(command.equals("Создать нового персонажа") && (status.equals("/start") ||
-                status.equals("Создать нового персонажа"))) {
+        if(command.equals("Создать нового персонажа") || status.equals("Создать нового персонажа")) {
             List<String> buttons = Arrays.asList("Маг", "Воин");
             Buttons.createHeroBut(sendMessage, buttons);
             sendMessage.setText("Выберите класс!");
@@ -80,7 +79,9 @@ public class GameLogic extends Init{
 
         try {
             execute(sendMessage);
-            Status = command;
+            if(!command.equals("/start")) {
+                Status = command;
+            }
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
