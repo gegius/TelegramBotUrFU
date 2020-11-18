@@ -13,66 +13,63 @@ public class GameLogic extends Init{
 
     public static String HeroClass = "";
 
-    public void Game(String command, String chatId){
+    public static String Status = "";
 
-        if(command.equals("/create_hero")) {
-            sendMsg(chatId, "Выберите класс!", "/create_hero");
-            HeroClass = "";
-        }
-        if(command.equals("/start")) {
-            sendMsg(chatId, "Здравствуйте, это бот для РПГ игры, пожалуйста," +
-                    "продолжите свою игру или начните сначала", "/start");
-        }
-        if(command.equals("Воин")) {
-            if(HeroClass.equals("")){
-                sendMsg(chatId, "Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP", "Воин");
-            }
-        }
-        if(command.equals("Маг")) {
-            if(HeroClass.equals("")){
-                sendMsg(chatId, "Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE", "Маг");
-            }
-        }
+    public void Game(String command, String chatId){
+        sendMsg(chatId, command, Status);
     }
 
     /**
      * Метод для настройки сообщения и его отправки.
      * @param chatId id чата
-     * @param s Строка, которую необходимот отправить в качестве сообщения.
+     * @param command Строка, которую необходимот отправить в качестве сообщения.
      */
 
-    public synchronized void sendMsg(String chatId, String s, String command) {
+    public synchronized void sendMsg(String chatId, String command, String status) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(chatId);
-        sendMessage.setText(s);
 
         //смотрим что ответил наш чел и даем ему соответствующие кнопки
 
         ButtonBuilder Buttons = new ButtonBuilder();
         List<String> mainMenu = Arrays.asList("Inventory", "Stats", "Leave", "Help", "asd", "asdsd", "183");
 
-
-        if(command.equals("/create_hero")) {
-            List<String> buttons = Arrays.asList("Маг", "Воин");
-            Buttons.createHeroBut(sendMessage, buttons);
-        }
-        if(command.equals("/start")) {
+        if(command.equals("/start") && status.equals("") || status.equals("Завершить игру")) {
             List<String> buttons = Arrays.asList("Продолжить", "/create_hero");
             Buttons.createHeroBut(sendMessage, buttons);
+            sendMessage.setText("Здравствуйте, это бот для РПГ игры, пожалуйста, " +
+                    "продолжите свою игру или начните сначала");
         }
-        if(command.equals("Воин")){
+
+        if(command.equals("/create_hero") && status.equals("/start")) {
+            List<String> buttons = Arrays.asList("Маг", "Воин");
+            Buttons.createHeroBut(sendMessage, buttons);
+            sendMessage.setText("Выберите класс!");
+        }
+
+        if(command.equals("Воин") && status.equals("/create_hero")){
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Warrior";
+            sendMessage.setText("Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP");
         }
-        if(command.equals("Маг")){
+        if(command.equals("Маг") && status.equals("/create_hero")){
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Mage";
+            sendMessage.setText("Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE");
         }
         try {
             execute(sendMessage);
+            Status = command;
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void start(String chatId){
+        if(Status.equals("")) {
+            sendMsg(chatId, "Здравствуйте, это бот для РПГ игры, пожалуйста," +
+                    "продолжите свою игру или начните сначала", "/start");
         }
     }
 }
