@@ -15,6 +15,8 @@ public class GameLogic extends Init{
 
     public static String Status = "";
 
+    public static String Sms = "";
+
     public void Game(String command, String chatId){
         sendMsg(chatId, command, Status);
     }
@@ -56,15 +58,31 @@ public class GameLogic extends Init{
 
         if(command.equals("Воин") && (status.equals("Создать нового персонажа") ||
                 status.equals("Воин"))){
+            Warrior warrior = new Warrior(200,50,1,20);
+            Sms = warrior.get_Stats();
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Warrior";
             sendMessage.setText("Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP");
+            //sendMessage.setText(warrior.get_Stats());
         }
         if(command.equals("Маг") && (status.equals("Создать нового персонажа") ||
                 status.equals("Маг"))){
+            Mage mage = new Mage(100 , 200 , 1 , 15);
+            Sms = mage.get_Stats();
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Mage";
             sendMessage.setText("Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE");
+
+        }
+        if(command.equals("Stats") && (status.equals("Создать нового персонажа") ||
+                status.equals("Маг"))){
+            sendMessage.setText(Sms);
+            Buttons.createHeroBut(sendMessage, mainMenu);
+        }
+        if(command.equals("Stats") && (status.equals("Создать нового персонажа") ||
+                status.equals("Воин"))){
+            sendMessage.setText(Sms);
+            Buttons.createHeroBut(sendMessage, mainMenu);
         }
         try {
             execute(sendMessage);
