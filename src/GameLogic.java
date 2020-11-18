@@ -35,25 +35,33 @@ public class GameLogic extends Init{
         ButtonBuilder Buttons = new ButtonBuilder();
         List<String> mainMenu = Arrays.asList("Inventory", "Stats", "Leave", "Help", "asd", "asdsd", "183");
 
-        if(command.equals("/start") && status.equals("") || status.equals("Завершить игру")) {
-            List<String> buttons = Arrays.asList("Продолжить", "/create_hero");
-            Buttons.createHeroBut(sendMessage, buttons);
-            sendMessage.setText("Здравствуйте, это бот для РПГ игры, пожалуйста, " +
-                    "продолжите свою игру или начните сначала");
+        if(command.equals("/start")) {
+            if(status.equals("") || status.equals("/start")){
+                List<String> buttons = Arrays.asList("Продолжить", "Создать нового персонажа");
+                Buttons.createHeroBut(sendMessage, buttons);
+                sendMessage.setText("Здравствуйте, это бот для РПГ игры, пожалуйста, " +
+                        "продолжите свою игру или начните сначала");
+            }
+            else{
+                command = Status;
+            }
         }
 
-        if(command.equals("/create_hero") && status.equals("/start")) {
+        if(command.equals("Создать нового персонажа") && (status.equals("/start") ||
+                status.equals("Создать нового персонажа"))) {
             List<String> buttons = Arrays.asList("Маг", "Воин");
             Buttons.createHeroBut(sendMessage, buttons);
             sendMessage.setText("Выберите класс!");
         }
 
-        if(command.equals("Воин") && status.equals("/create_hero")){
+        if(command.equals("Воин") && (status.equals("Создать нового персонажа") ||
+                status.equals("Воин"))){
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Warrior";
             sendMessage.setText("Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP");
         }
-        if(command.equals("Маг") && status.equals("/create_hero")){
+        if(command.equals("Маг") && (status.equals("Создать нового персонажа") ||
+                status.equals("Маг"))){
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Mage";
             sendMessage.setText("Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE");
