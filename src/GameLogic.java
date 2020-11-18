@@ -1,9 +1,6 @@
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.File;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class GameLogic extends Init{
 
     public static String Status = "";
 
-    public static String Sms = "";
+    public static String Statistic = "";
 
     public static Hero hero = new Hero(0 , 0 , 0 , 0);
 
@@ -37,7 +34,7 @@ public class GameLogic extends Init{
         //смотрим что ответил наш чел и даем ему соответствующие кнопки
 
         ButtonBuilder Buttons = new ButtonBuilder();
-        List<String> mainMenu = Arrays.asList("Inventory", "Stats", "Leave", "Help", "asd", "asdsd", "183");
+        List<String> mainMenu = Arrays.asList("Inventory", "Статистика", "Leave", "Help", "asd", "asdsd", "183");
 
         if(command.equals("/start")) {
             if(status.equals("") || status.equals("/start")){
@@ -61,41 +58,31 @@ public class GameLogic extends Init{
         if(command.equals("Воин") && (status.equals("Создать нового персонажа") ||
                 status.equals("Воин"))){
             Hero hero = new Warrior(200,50,1,20);
-            Sms = hero.get_Stats();
+            Statistic = hero.get_Stats();
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Warrior";
-            sendMessage.setText("Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP");
+            sendMessage.setText("Ваш класс Воин!" + "\nИсточник: https://clck.ru/RxsJP\n" + Statistic);
 
         }
         if(command.equals("Маг") && (status.equals("Создать нового персонажа") ||
                 status.equals("Маг"))){
             Hero hero = new Mage(100 , 200 , 1 , 15);
-            Sms = hero.get_Stats();
+            Statistic = hero.get_Stats();
             Buttons.createHeroBut(sendMessage, mainMenu);
             HeroClass = "Mage";
-            sendMessage.setText("Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE");
+            sendMessage.setText("Ваш класс Маг!" + "\nИсточник: https://clck.ru/RxsHE\n" + Statistic);
 
         }
-        if(command.equals("Stats") && (!HeroClass.equals("") )){
-            sendMessage.setText(Sms);
+        if(command.equals("Статистика") && (!HeroClass.equals("") )){
+            sendMessage.setText(Statistic);
             Buttons.createHeroBut(sendMessage, mainMenu);
         }
-        if(command.equals("Stats") && (!HeroClass.equals(""))){
-            sendMessage.setText(Sms);
-            Buttons.createHeroBut(sendMessage, mainMenu);
-        }
+
         try {
             execute(sendMessage);
             Status = command;
         } catch (TelegramApiException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void start(String chatId){
-        if(Status.equals("")) {
-            sendMsg(chatId, "Здравствуйте, это бот для РПГ игры, пожалуйста," +
-                    "продолжите свою игру или начните сначала", "/start");
         }
     }
 }

@@ -12,13 +12,13 @@ public class Hero {
         this.h_Lvl = lvl;
 
     }
-    public int get_Heath(){return h_Heath;};
-    public int get_Mana(){return h_Mana;};
-    public int get_Damage(){return h_damage;};
-    public int get_Lvl(){return h_Lvl;};
+    public int get_Heath(){return h_Heath;}
+    public int get_Mana(){return h_Mana;}
+    public int get_Damage(){return h_damage;}
+    public int get_Lvl(){return h_Lvl;}
 
     public String get_Stats(){
-        return " Ваши статы" + "\nЗдоровье = " + get_Heath() + "\nМана = " + get_Mana() + "\nУрон = " + get_Damage() + "\nУровень = " + get_Lvl();
+        return "Ваши статы:" + "\nЗдоровье = " + get_Heath() + "\nМана = " + get_Mana() + "\nУрон = " + get_Damage() + "\nУровень = " + get_Lvl();
 
     }
 
