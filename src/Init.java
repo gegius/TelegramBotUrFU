@@ -47,6 +47,7 @@ public class Init extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         GameLogic game = new GameLogic();
+        System.out.println(update.getMessage().getChat().getFirstName());
         String message = update.getMessage().getText();
         String chatId = update.getMessage().getChatId().toString();
         game.Game(message, chatId);
