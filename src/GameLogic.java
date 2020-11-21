@@ -120,9 +120,13 @@ public class GameLogic extends Init{
 
         if(command.equals("Описание способностей") && (!HeroClass.equals(""))){
             sendMessage.setText("Пока недоступно");
+            List<String> buttons = Arrays.asList("Название первой способности", "второй", "третьей");
+            Buttons.createHeroBut(sendMessage, buttons);
             mainMenu(sendMessage);
         }
-        //заменить на инвентарь
+
+        //заменить на инвентарь потом
+        //использовать для теста способностей
         if(command.equals("Тест урона (60)") && (!HeroClass.equals(""))){
             sendMessage.setText("Вы получили 60 урона! \uD83D\uDCA5");
             HP -= 60;
@@ -158,7 +162,7 @@ public class GameLogic extends Init{
     public void mainMenu(SendMessage message){
         List<String> mainMenu = Arrays.asList("Здоровье " + HP + "❤", "Мана " + Mana + "\uD83C\uDF0A",
                                               "Статистика", "Описание способностей", "Начать/продолжить игру",
-                                              "Тест урона (60)", "Удалить текущий прогресс и начать новую игру");
+                                              "Тест способности: /param/", "Удалить текущий прогресс и начать новую игру");
         ButtonBuilder Buttons = new ButtonBuilder();
         Buttons.createHeroBut(message, mainMenu);
     }
