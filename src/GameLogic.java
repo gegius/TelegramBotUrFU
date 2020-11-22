@@ -15,7 +15,7 @@ public class GameLogic extends Init{
 
     public static String Statistic = "";
 
-    public static Hero hero = new Hero(0 , 0 , 0 , 0);
+    public static Hero hero = new Hero(0 , 0 , 0 , 0, 0 , 0, 0);
 
     public static int Mana = 0;
 
@@ -66,7 +66,7 @@ public class GameLogic extends Init{
 
         if(command.equals("Воин\uD83D\uDDE1") && (status.equals("Создать нового персонажа") ||
                 status.equals("Воин\uD83D\uDDE1"))){
-            Hero hero = new Warrior(200,50,1,20);
+            Hero hero = new Warrior(200,50,1,20, 20 , 30 , 60);
             Statistic = hero.get_Stats();
             Mana = hero.get_Mana();
             HP = hero.get_Heath();
@@ -78,7 +78,7 @@ public class GameLogic extends Init{
         }
         if(command.equals("Маг\uD83D\uDD2E") && (status.equals("Создать нового персонажа") ||
                 status.equals("Маг\uD83D\uDD2E"))){
-            Hero hero = new Mage(100 , 200 , 1 , 10);
+            Hero hero = new Mage(100 , 200 , 1 , 10, 20 , 30 , 100);
             Statistic = hero.get_Stats();
             Mana = hero.get_Mana();
             HP = hero.get_Heath();
@@ -90,7 +90,7 @@ public class GameLogic extends Init{
         }
         if(command.equals("Лучник\uD83C\uDFF9") && (status.equals("Создать нового персонажа") ||
                 status.equals("Лучник\uD83C\uDFF9"))){
-            Hero hero = new Hero(100 , 100 , 1 , 15);
+            Hero hero = new Archor(100 , 100 , 1 , 15, 40 , 30 , 80);
             Statistic = hero.get_Stats();
             Mana = hero.get_Mana();
             HP = hero.get_Heath();
@@ -109,7 +109,7 @@ public class GameLogic extends Init{
         if(command.equals("Удалить текущий прогресс и начать новую игру") && (!HeroClass.equals(""))) {
             HeroClass = "";
             Status = "";
-            hero = new Hero(0 , 0 , 0 , 0);
+            hero = new Hero(0 , 0 , 0 , 0, 0, 0 ,0);
             Mana = 0;
             HP = 0;
             Statistic = "";
@@ -140,7 +140,7 @@ public class GameLogic extends Init{
         if(HP <= 0 && !HeroClass.equals("")){
             HeroClass = "";
             Status = "";
-            hero = new Hero(0 , 0 , 0 , 0);
+            hero = new Hero(0 , 0 , 0 , 0, 0 , 0 ,0);
             Mana = 0;
             HP = 0;
             Statistic = "";
