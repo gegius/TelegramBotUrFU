@@ -35,7 +35,7 @@ public class Init extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         return "RPGtask_bot";
-        //возвращаем юзера
+        //возвращаем юзер. GLEB LOX
     }
 
     @Override
