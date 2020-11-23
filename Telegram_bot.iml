@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.telegram:telegrambots:4.9.1" level="project" />
+    <orderEntry type="library" name="io.github.willena:sqlite-jdbc:3.31.0" level="project" />
   </component>
 </module>
