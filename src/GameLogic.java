@@ -110,7 +110,7 @@ public class GameLogic extends Init{
         }
         if(command.equals("Лучник\uD83C\uDFF9") && (status.equals("Создать нового персонажа") ||
                 status.equals("Лучник\uD83C\uDFF9"))){
-            Hero hero = new Hero(100 , 100 , 1 , 15);
+            Hero hero = new Archer(100 , 100 , 1 , 15);
             setMana(dataBase, chatId, hero.get_Mana());
             setHealth(dataBase, chatId, hero.get_Heath());
             setXP(dataBase, chatId, hero.get_Lvl());

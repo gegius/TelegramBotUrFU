@@ -1,8 +1,8 @@
 public class Hero {
-    private int h_Heath;
-    private int h_Mana;
-    private int h_Lvl;
-    private int h_damage;
+    private final int h_Heath;
+    private final int h_Mana;
+    private final int h_Lvl;
+    private final int h_damage;
 
 
     public Hero(int heath , int mana , int lvl , int damage){
