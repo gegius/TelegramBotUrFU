@@ -1,3 +1,5 @@
+package hero;
+
 public class Hero {
     private final int h_Heath;
     private final int h_Mana;

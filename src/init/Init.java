@@ -1,11 +1,19 @@
+package init;
+
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import status.Condition;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Init extends TelegramLongPollingBot {
+
+    Map<String, Condition> cacheOfConditions = new HashMap<>();
 
     public static void main(String[] args) {
         // Initialize Api Context
@@ -40,7 +48,7 @@ public class Init extends TelegramLongPollingBot {
         System.out.println(update.getMessage().getChat().getFirstName());
         String message = update.getMessage().getText();
         String chatId = update.getMessage().getChatId().toString();
-        game.Game(message, chatId);
+        game.game(message, chatId, cacheOfConditions);
     }
 
 
