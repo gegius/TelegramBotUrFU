@@ -1,36 +1,35 @@
 package status;
 
 import hero.Hero;
-import hero.Warrior;
+import hero.Mage;
 import init.ButtonBuilder;
 import init.DataBase;
 import init.SendAnswer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
 import java.util.Arrays;
 import java.util.List;
 
-public class WarriorCondition implements Condition{
+public class SetClassMageCondition implements Condition {
     DataBase dataBase = new DataBase();
     SendMessage message = new SendMessage();
     SendAnswer answer = new SendAnswer();
     @Override
     public Condition getNextCondition(String lastStatus, String command) {
-        if(command.equals(getNameOfCondition()) &&
+        if(command.equals(getNameOfCondition(command)) &&
                 (lastStatus.equals("Создать нового персонажа") ||
                 lastStatus.equals(command))){
             return null;
         }
-        else return new MageCondition();
+        else return new DeleteProgressCondition();
     }
 
     @Override
-    public void getMessage(String chatId, String command) {
+    public void sendMessage(String chatId, String command) {
         dataBase.open();
-        if(!dataBase.getStatus(chatId).equals(getNameOfCondition())) {
+        if(!dataBase.getStatus(chatId).equals(getNameOfCondition(command))) {
             changeDate(chatId, command);
         }
-        message.setText("Ваш класс Воин🗡" + "\n\n\nИсточник: https://clck.ru/RxsJP");
+        message.setText("Ваш класс Маг🔮" + "\n\n\nИсточник: https://clck.ru/RxsHE");
         mainMenu(chatId);
         answer.sendMsg(chatId, message);
         dataBase.close();
@@ -38,18 +37,20 @@ public class WarriorCondition implements Condition{
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Warrior(200,50,1,20);
+        Hero hero = new Mage(100 , 200 , 1 , 10);
         dataBase.setMana(chatId, hero.get_Mana());
         dataBase.setHealth(chatId, hero.get_Heath());
         dataBase.setXP(chatId, hero.get_Lvl());
         dataBase.setDamage(chatId, hero.get_Damage());
-        dataBase.setClass(chatId, "Warrior");
-        dataBase.setInventory(chatId, "Меч земляка, Щит новобранца");
+        dataBase.setClass(chatId, "Mage");
+        dataBase.setInventory(chatId, "Посох ученика");
         dataBase.setStatus(chatId, command);
     }
 
     @Override
-    public String getNameOfCondition() { return "Воин🗡"; }
+    public String getNameOfCondition(String command) {
+        return "Маг🔮";
+    }
 
     @Override
     public void mainMenu(String chatId) {

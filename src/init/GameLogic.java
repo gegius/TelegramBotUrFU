@@ -21,13 +21,13 @@ public class GameLogic extends Init {
             condition = cacheOfConditions.get(command);
         }
         else {
-            while(!condition.getNameOfCondition().equals(command)){
-                cacheOfConditions.put(condition.getNameOfCondition(), condition);
+            while(!condition.getNameOfCondition(command).equals(command)){
+                cacheOfConditions.put(condition.getNameOfCondition(command), condition);
                 condition = condition.getNextCondition(status, command);
             }
         }
         if(condition.getNextCondition(status, command) == null) {
-            condition.getMessage(chatId, command);
+            condition.sendMessage(chatId, command);
         }
         dataBase.close();
     }

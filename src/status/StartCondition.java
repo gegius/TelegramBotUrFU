@@ -4,7 +4,7 @@ import init.DataBase;
 import init.SendAnswer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import init.ButtonBuilder;
-import java.util.Arrays;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class StartCondition implements Condition {
     }
 
     @Override
-    public void getMessage(String chatId, String command) {
+    public void sendMessage(String chatId, String command) {
         dataBase.open();
         if(dataBase.getStatus(chatId).equals("")){
             message.setText("Здравствуйте, это бот для РПГ игры, пожалуйста, " +
@@ -46,7 +46,7 @@ public class StartCondition implements Condition {
     }
 
     @Override
-    public String getNameOfCondition() {
+    public String getNameOfCondition(String command) {
         return "/start";
     }
 

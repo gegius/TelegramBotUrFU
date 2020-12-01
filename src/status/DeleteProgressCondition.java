@@ -5,7 +5,6 @@ import init.DataBase;
 import init.SendAnswer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,14 +14,14 @@ public class DeleteProgressCondition implements Condition{
     SendMessage message = new SendMessage();
     @Override
     public Condition getNextCondition(String lastStatus, String command) {
-        if(command.equals(getNameOfCondition())){
+        if(command.equals(getNameOfCondition(command))){
             return null;
         }
         else {return new InventoryCondition();}
     }
 
     @Override
-    public void getMessage(String chatId, String command) {
+    public void sendMessage(String chatId, String command) {
         dataBase.open();
         if (!dataBase.getClass(chatId).equals("")) {
             changeDate(chatId, command);
@@ -43,7 +42,7 @@ public class DeleteProgressCondition implements Condition{
     }
 
     @Override
-    public String getNameOfCondition() {
+    public String getNameOfCondition(String command) {
         return "Удалить текущий прогресс";
     }
 

@@ -15,14 +15,14 @@ public class CreateHeroCondition implements Condition{
     SendAnswer answer = new SendAnswer();
     @Override
     public Condition getNextCondition(String lastStatus, String command) {
-        if(command.equals(getNameOfCondition())){
+        if(command.equals(getNameOfCondition(command))){
             return null;
         }
-        else return new ArcherCondition();
+        else return new SetClassArcherCondition();
     }
 
     @Override
-    public void getMessage(String chatId, String command) {
+    public void sendMessage(String chatId, String command) {
         dataBase.open();
         if(!dataBase.getClass(chatId).equals("")){
             message.setText("В базе уже есть ваш персонаж, удалите старого или напишите \"/start\"");
@@ -32,7 +32,7 @@ public class CreateHeroCondition implements Condition{
         }
         else{
             changeDate(chatId, command);
-            dataBase.setStatus(chatId, getNameOfCondition());
+            dataBase.setStatus(chatId, command);
         }
         answer.sendMsg(chatId, message);
         dataBase.close();
@@ -48,7 +48,7 @@ public class CreateHeroCondition implements Condition{
     }
 
     @Override
-    public String getNameOfCondition() {
+    public String getNameOfCondition(String command) {
         return "Создать нового персонажа";
     }
 

@@ -9,10 +9,10 @@ public class DataBase {
     public void insert(String id, String status){
         try {
             String query =
-                    "INSERT INTO users (id, heroClass, status, heroHealth," +
+                    "INSERT INTO users (id, heroClass, status, gamePart, heroHealth," +
                             " heroMana, heroLevel, heroDamage, heroInventory) " +
                             "VALUES ('" + id + "', '" + "" + "', '" +
-                            status + "', '" + 1 + "', '" + 1
+                            status + "', '" + "" + "', '" + 1 + "', '" + 1
                             + "', '" + 1 + "', '" + 1 +
                             "', '" + "" + "') ";
             Statement statement = co.createStatement();
@@ -89,7 +89,7 @@ public class DataBase {
         }
     }
 
-    //Открытие базы данныхf
+    //Открытие базы данных
 
     public void open(){
         try {
@@ -133,6 +133,23 @@ public class DataBase {
 
     public void setStatus(String ID, String status) {
         update(ID, "status", status);
+    }
+
+    //Получение части игры
+
+    public String getGamePart(String ID){
+        try{
+            return select(ID, "gamePart");
+        }
+        catch (Exception e){
+            return "";
+        }
+    }
+
+    //Запись позиции автомата в БД
+
+    public void setGamePart(String ID, String gamePart) {
+        update(ID, "gamePart", gamePart);
     }
 
     //Получение здоровья из БД

@@ -1,16 +1,13 @@
 package status;
 
-import hero.Hero;
 import init.ButtonBuilder;
 import init.DataBase;
 import init.SendAnswer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class StatisticCondition implements Condition{
+public class MenuCondition implements Condition {
     DataBase dataBase = new DataBase();
     SendMessage message = new SendMessage();
     SendAnswer answer = new SendAnswer();
@@ -19,37 +16,28 @@ public class StatisticCondition implements Condition{
         if(command.equals(getNameOfCondition(command))){
             return null;
         }
-        else return new MenuCondition();
+        else{return new GameFirstPartOrContinue();}
     }
 
     @Override
     public void sendMessage(String chatId, String command) {
         dataBase.open();
-        if(!dataBase.getClass(chatId).equals("")){
-            changeDate(chatId, command);
+        if(!dataBase.getClass(chatId).equals("")) {
             mainMenu(chatId);
+            message.setText("Переход в меню игры");
+            answer.sendMsg(chatId, message);
         }
-        else{
-            message.setText("У вас нет героя");
-            List<String> mainMenu = Collections.singletonList("/start");
-            ButtonBuilder Buttons = new ButtonBuilder();
-            Buttons.createHeroBut(message, mainMenu);
-        }
-        answer.sendMsg(chatId, message);
         dataBase.close();
     }
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Hero(dataBase.getHealth(chatId),
-                dataBase.getMana(chatId), dataBase.getXP(chatId),
-                dataBase.getDamage(chatId));
-        message.setText(hero.get_Stats());
+
     }
 
     @Override
     public String getNameOfCondition(String command) {
-        return "Статистика";
+        return "Открыть меню";
     }
 
     @Override

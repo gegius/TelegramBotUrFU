@@ -4,7 +4,6 @@ import init.ButtonBuilder;
 import init.DataBase;
 import init.SendAnswer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,14 +13,14 @@ public class InventoryCondition implements Condition{
     SendAnswer answer = new SendAnswer();
     @Override
     public Condition getNextCondition(String lastStatus, String command) {
-        if(command.equals(getNameOfCondition())){
+        if(command.equals(getNameOfCondition(command))){
             return null;
         }
         return new StatisticCondition();
     }
 
     @Override
-    public void getMessage(String chatId, String command) {
+    public void sendMessage(String chatId, String command) {
         dataBase.open();
         if(!dataBase.getClass(chatId).equals("")){
             changeDate(chatId, command);
@@ -42,7 +41,7 @@ public class InventoryCondition implements Condition{
     }
 
     @Override
-    public String getNameOfCondition() {
+    public String getNameOfCondition(String command) {
         return "Инвентарь";
     }
 

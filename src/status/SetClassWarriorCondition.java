@@ -1,35 +1,36 @@
 package status;
-import hero.Archer;
+
 import hero.Hero;
+import hero.Warrior;
+import init.ButtonBuilder;
 import init.DataBase;
 import init.SendAnswer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import init.ButtonBuilder;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ArcherCondition implements Condition {
+public class SetClassWarriorCondition implements Condition{
     DataBase dataBase = new DataBase();
     SendMessage message = new SendMessage();
     SendAnswer answer = new SendAnswer();
-    public Condition getNextCondition(String lastStatus, String command){
-        if(command.equals(getNameOfCondition()) &&
+    @Override
+    public Condition getNextCondition(String lastStatus, String command) {
+        if(command.equals(getNameOfCondition(command)) &&
                 (lastStatus.equals("Создать нового персонажа") ||
-                lastStatus.equals(command))) {
+                lastStatus.equals(command))){
             return null;
         }
-        else return new WarriorCondition();
+        else return new SetClassMageCondition();
     }
 
-
     @Override
-    public void getMessage(String chatId, String command) {
+    public void sendMessage(String chatId, String command) {
         dataBase.open();
-        if(!dataBase.getStatus(chatId).equals(getNameOfCondition())) {
+        if(!dataBase.getStatus(chatId).equals(getNameOfCondition(command))) {
             changeDate(chatId, command);
         }
-        message.setText("Ваш класс Лучник!🏹" + "\n\n\nИсточник: https://clck.ru/RykAm");
+        message.setText("Ваш класс Воин🗡" + "\n\n\nИсточник: https://clck.ru/RxsJP");
         mainMenu(chatId);
         answer.sendMsg(chatId, message);
         dataBase.close();
@@ -37,18 +38,18 @@ public class ArcherCondition implements Condition {
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Archer(150 , 100 , 1 , 15);
+        Hero hero = new Warrior(200,50,1,20);
         dataBase.setMana(chatId, hero.get_Mana());
         dataBase.setHealth(chatId, hero.get_Heath());
         dataBase.setXP(chatId, hero.get_Lvl());
         dataBase.setDamage(chatId, hero.get_Damage());
-        dataBase.setClass(chatId, "Archer");
-        dataBase.setInventory(chatId, "Лук охотника");
+        dataBase.setClass(chatId, "Warrior");
+        dataBase.setInventory(chatId, "Меч земляка, Щит новобранца");
         dataBase.setStatus(chatId, command);
     }
 
     @Override
-    public String getNameOfCondition() { return "Лучник🏹"; }
+    public String getNameOfCondition(String command) { return "Воин🗡"; }
 
     @Override
     public void mainMenu(String chatId) {
@@ -59,6 +60,4 @@ public class ArcherCondition implements Condition {
         ButtonBuilder Buttons = new ButtonBuilder();
         Buttons.createHeroBut(message, mainMenu);
     }
-
 }
-
