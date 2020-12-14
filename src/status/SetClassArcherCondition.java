@@ -14,7 +14,8 @@ public class SetClassArcherCondition implements Condition {
     SendMessage message = new SendMessage();
     SendAnswer answer = new SendAnswer();
     public Condition getNextCondition(String lastStatus, String command){
-        if(command.equals(getNameOfCondition(command)) &&
+        if(command.equals(getNameOfCondition(command
+        )) &&
                 (lastStatus.equals("Создать нового персонажа") ||
                 lastStatus.equals(command))) {
             return null;
