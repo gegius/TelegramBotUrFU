@@ -5,10 +5,11 @@ public class Sword {
     private String sword_name;
 
     public Sword(String name) {
-        this.sword_name = name;
+    this.sword_name = name;
+    setSword_damage();
     }
 
-    public int getSword_damage() {
+    public int getSword_damage(){
         return sword_damage;
     }
 
@@ -16,25 +17,36 @@ public class Sword {
         return sword_name;
     }
 
-    public void setSword_damage(String sword_name) {
-        if (this.sword_name.equals("Обычный меч")) {
-            this.sword_damage = 25;
-        }
-        if (this.sword_name.equals("Редкий меч")) {
-            this.sword_damage = 50;
-        }
-        if (this.sword_name.equals("Супер редкий меч")) {
-            this.sword_damage = 75;
-        }
-        if (this.sword_name.equals("Легендарный меч")) {
-            this.sword_damage = 100;
+    //Установка статов по имени меча
+    public void setSword_damage() {
+        switch (this.sword_name) {
+            case "Обычный меч" -> {
+                this.sword_damage = 35;
+            }
+            case "Редкий меч" -> {
+                this.sword_damage = 50;
+            }
+            case "Мифический меч" -> {
+                this.sword_damage = 80;
+            }
+            case "Легендарний меч" -> {
+                this.sword_damage = 120;
+            }
         }
     }
 
     public String get_Stats(){return "Статы меча";} // вывод пользователю
-    public String get_Info()
-    {
-        if (sword_name.equals("Стартовый меч")){return "Описание меча";} // вывод пользователю
-        else { return "Такого меча не существует";}
+
+
+    //Резульат вызова этого метода будем пихать в sendMassage, когда пользователь запросит информацию
+    public String get_Info() {
+        switch (this.sword_name){
+            case "Обычный щит" -> {return "A";}
+            case "Редкий меч" -> {return "B";}
+            case "Мифический меч" ->{return "C";}
+            case "Легендарный меч" ->{return "D";}
+            default -> {return "Такого меча не существует";}
+        }
+
     }
 }
