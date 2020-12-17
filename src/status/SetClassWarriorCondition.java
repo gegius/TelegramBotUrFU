@@ -38,11 +38,11 @@ public class SetClassWarriorCondition implements Condition{
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Warrior(200,50,1,20);
-        dataBase.setMana(chatId, hero.get_Mana());
-        dataBase.setHealth(chatId, hero.get_Heath());
-        dataBase.setXP(chatId, hero.get_Lvl());
-        dataBase.setDamage(chatId, hero.get_Damage());
+        Hero hero = new Warrior(200,50,1,20, 0);
+        dataBase.setMana(chatId, hero.getHeroMana());
+        dataBase.setHealth(chatId, hero.getHeroHeath());
+        dataBase.setLvl(chatId, hero.getHeroLvl());
+        dataBase.setDamage(chatId, hero.getHeroDamage());
         dataBase.setClass(chatId, "Warrior");
         dataBase.setInventory(chatId, "Меч земляка, Щит новобранца");
         dataBase.setStatus(chatId, command);

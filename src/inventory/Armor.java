@@ -1,20 +1,20 @@
 package inventory;
 
 public class Armor {
-    private int armor_lvl;
+    private int armorLvl;
     private String armor_name;
     private int armor_mana;
 
     public Armor( String name){
         this.armor_name = name;
-        set_Stats();
+        setStats();
     }
 
-    public int getArmor_lvl() {
-        return armor_lvl;
+    public int getArmorlvl() {
+        return armorLvl;
     }
 
-    public int getArmor_mana() {
+    public int getArmorMana() {
         return armor_mana;
     }
 
@@ -22,23 +22,24 @@ public class Armor {
         return armor_name;
     }
 
+
     // Установка статов по имени брони
-    public void set_Stats() {
+    public void setStats() {
         switch (this.armor_name) {
             case "Обычная броня" -> {
-                this.armor_lvl = 1;
+                this.armorLvl = 1;
                 this.armor_mana = 0 ;
             }
             case "Редкая броня" -> {
-                this.armor_lvl = 2;
+                this.armorLvl = 2;
                 this.armor_mana = 30;
             }
-            case "Мифическая" -> {
-                this.armor_lvl = 3;
+            case "Мифическая броня" -> {
+                this.armorLvl = 3;
                 this.armor_mana = 50;
             }
             case "Легендарная броня" -> {
-                this.armor_lvl = 4;
+                this.armorLvl = 4;
                 this.armor_mana = 100;
             }
         }

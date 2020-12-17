@@ -10,11 +10,11 @@ public class DataBase {
         try {
             String query =
                     "INSERT INTO users (id, heroClass, status, gamePart, heroHealth," +
-                            " heroMana, heroLevel, heroDamage, heroInventory) " +
+                            " heroMana, heroLevel, heroDamage, heroInventory, heroExperience) " +
                             "VALUES ('" + id + "', '" + "" + "', '" +
                             status + "', '" + "" + "', '" + 1 + "', '" + 1
                             + "', '" + 1 + "', '" + 1 +
-                            "', '" + "" + "') ";
+                            "', '" + "" + "', '" + 1 + "' ) ";
             Statement statement = co.createStatement();
             statement.executeUpdate(query);
         }
@@ -188,7 +188,7 @@ public class DataBase {
 
     //Получение текущего опыта из БД
 
-    public int getXP(String ID){
+    public int getLVL(String ID){
         try {
             return Integer.parseInt(select(ID, "heroLevel"));
         }
@@ -199,7 +199,7 @@ public class DataBase {
 
     //Запись текущего опыта в БД
 
-    public void setXP(String ID, int lvl){
+    public void setLvl(String ID, int lvl){
         update(ID, "heroLevel", String.valueOf(lvl));
     }
 
@@ -234,4 +234,19 @@ public class DataBase {
     public void setInventory(String ID, String item){
         update(ID, "heroInventory", String.valueOf(item));
     }
+
+    // Получение текущего уровня героя из БД
+
+    public int getExperience(String ID){
+        try{
+            return Integer.parseInt(select(ID,"heroExperience"));
+        }
+        catch (Exception e){
+            return 0;
+        }
+    }
+
+    //Запись текущего опыта в БД
+
+    public void setExperience(String ID, int experience0){ update(ID, "heroExperience", String.valueOf(experience0));}
 }

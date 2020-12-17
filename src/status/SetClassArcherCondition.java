@@ -38,11 +38,11 @@ public class SetClassArcherCondition implements Condition {
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Archer(150 , 100 , 1 , 15);
-        dataBase.setMana(chatId, hero.get_Mana());
-        dataBase.setHealth(chatId, hero.get_Heath());
-        dataBase.setXP(chatId, hero.get_Lvl());
-        dataBase.setDamage(chatId, hero.get_Damage());
+        Hero hero = new Archer(150 , 100 , 1 , 15, 0);
+        dataBase.setMana(chatId, hero.getHeroMana());
+        dataBase.setHealth(chatId, hero.getHeroHeath());
+        dataBase.setLvl(chatId, hero.getHeroLvl());
+        dataBase.setDamage(chatId, hero.getHeroDamage());
         dataBase.setClass(chatId, "Archer");
         dataBase.setInventory(chatId, "Лук охотника");
         dataBase.setStatus(chatId, command);

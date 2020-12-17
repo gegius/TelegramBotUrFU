@@ -1,27 +1,66 @@
 package hero;
 
 public class Hero {
-    private final int h_Heath;
-    private final int h_Mana;
-    private final int h_Lvl;
-    private final int h_damage;
+    private final int heroHeath;
+    private final int heroMana;
+    private int heroLvl;
+    private final int heroDamage;
+    private int heroExperience;
 
 
-    public Hero(int heath , int mana , int lvl , int damage){
-        this.h_Heath = heath;
-        this.h_Mana = mana;
-        this.h_damage = damage;
-        this.h_Lvl = lvl;
+    public Hero(int heath , int mana , int lvl , int damage, int experience){
+        this.heroHeath = heath;
+        this.heroMana = mana;
+        this.heroDamage = damage;
+        this.heroLvl = lvl;
+        this.heroExperience = experience;
 
     }
-    public int get_Heath(){return h_Heath;}
-    public int get_Mana(){return h_Mana;}
-    public int get_Damage(){return h_damage;}
-    public int get_Lvl(){return h_Lvl;}
+
+
+    public int getHeroDamage() {
+        return heroDamage;
+    }
+
+    public int getHeroExperience() {
+        return heroExperience;
+    }
+
+    public int getHeroHeath() {
+        return heroHeath;
+    }
+
+    public int getHeroMana() {
+        return heroMana;
+    }
+
+    public int getHeroLvl() {
+        return heroLvl;
+    }
+
+    public void setHeroLvl(int giveLvl){
+        this.heroLvl += giveLvl;
+    }
+
+
+    // Этот опыт(exp) нам будут давать мобы или еще что-то
+    public void setHeroExperience(int exp){
+        int postFightExperience =  exp + getHeroExperience();
+        if (postFightExperience >= 100){
+            var giveLvl = exp / 100;
+            setHeroLvl(giveLvl);
+            this.heroExperience = postFightExperience % 100 + getHeroExperience();
+        }
+        else{ this.heroExperience = getHeroExperience() + exp;}
+    }
 
     public String get_Stats(){
-        return "Ваши статы:" + "\nЗдоровье = " + get_Heath() + "\nМана = " + get_Mana() + "\nУрон = " + get_Damage() + "\nУровень = " + get_Lvl();
-
+        return "Ваши статы:" +
+                "\nЗдоровье = " +getHeroHeath() +
+                "\nМана = " + getHeroMana() +
+                "\nУрон = " + getHeroDamage() +
+                "\nУровень = " + getHeroLvl() +
+                "\nОпыт = " + getHeroExperience();
     }
 
 

@@ -42,8 +42,8 @@ public class StatisticCondition implements Condition{
     @Override
     public void changeDate(String chatId, String command) {
         Hero hero = new Hero(dataBase.getHealth(chatId),
-                dataBase.getMana(chatId), dataBase.getXP(chatId),
-                dataBase.getDamage(chatId));
+                dataBase.getMana(chatId), dataBase.getLVL(chatId),
+                dataBase.getDamage(chatId),dataBase.getExperience(chatId));
         message.setText(hero.get_Stats());
     }
 

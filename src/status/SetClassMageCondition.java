@@ -37,14 +37,15 @@ public class SetClassMageCondition implements Condition {
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Mage(100 , 200 , 1 , 10);
-        dataBase.setMana(chatId, hero.get_Mana());
-        dataBase.setHealth(chatId, hero.get_Heath());
-        dataBase.setXP(chatId, hero.get_Lvl());
-        dataBase.setDamage(chatId, hero.get_Damage());
+        Hero hero = new Mage(100 , 200 , 1 , 10, 0);
+        dataBase.setMana(chatId, hero.getHeroMana());
+        dataBase.setHealth(chatId, hero.getHeroHeath());
+        dataBase.setLvl(chatId, hero.getHeroLvl());
+        dataBase.setDamage(chatId, hero.getHeroDamage());
         dataBase.setClass(chatId, "Mage");
         dataBase.setInventory(chatId, "Посох ученика");
         dataBase.setStatus(chatId, command);
+        dataBase.setExperience(chatId, hero.getHeroExperience());
     }
 
     @Override
