@@ -45,7 +45,7 @@ public class SetClassMageCondition implements Condition {
         dataBase.setClass(chatId, "Mage");
         dataBase.setInventory(chatId, "Посох ученика");
         dataBase.setStatus(chatId, command);
-        dataBase.setExperience(chatId, hero.getHeroExperience());
+        dataBase.setExperience(chatId, 330);
     }
 
     @Override

@@ -1,11 +1,18 @@
 package hero;
+import init.DataBase;
+import init.SendAnswer;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 public class Hero {
-    private final int heroHeath;
-    private final int heroMana;
+    private int heroHeath;
+    private int heroMana;
     private int heroLvl;
-    private final int heroDamage;
+    private  int heroDamage;
     private int heroExperience;
+
+    DataBase dataBase = new DataBase();
+    SendMessage message = new SendMessage();
+    SendAnswer answer = new SendAnswer();
 
 
     public Hero(int heath , int mana , int lvl , int damage, int experience){
@@ -38,29 +45,17 @@ public class Hero {
         return heroLvl;
     }
 
-    public void setHeroLvl(int giveLvl){
-        this.heroLvl += giveLvl;
-    }
+    public void setHeroMana(int mana){this.heroMana = mana;}
 
 
-    // Этот опыт(exp) нам будут давать мобы или еще что-то
-    public void setHeroExperience(int exp){
-        int postFightExperience =  exp + getHeroExperience();
-        if (postFightExperience >= 100){
-            var giveLvl = exp / 100;
-            setHeroLvl(giveLvl);
-            this.heroExperience = postFightExperience % 100 + getHeroExperience();
-        }
-        else{ this.heroExperience = getHeroExperience() + exp;}
-    }
 
-    public String get_Stats(){
+    public String get_Stats(String chatId){
         return "Ваши статы:" +
                 "\nЗдоровье = " +getHeroHeath() +
                 "\nМана = " + getHeroMana() +
                 "\nУрон = " + getHeroDamage() +
                 "\nУровень = " + getHeroLvl() +
-                "\nОпыт = " + getHeroExperience();
+                "\nОпыт = " + getHeroExperience() + " \\ 100 ";
     }
 
 

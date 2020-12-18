@@ -46,6 +46,7 @@ public class SetClassWarriorCondition implements Condition{
         dataBase.setClass(chatId, "Warrior");
         dataBase.setInventory(chatId, "Меч земляка, Щит новобранца");
         dataBase.setStatus(chatId, command);
+        dataBase.setExperience(chatId, hero.getHeroExperience());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package init;
+import hero.Hero;
+
 import java.sql.*;
+
 
 public class DataBase {
     Connection co;
@@ -14,7 +17,7 @@ public class DataBase {
                             "VALUES ('" + id + "', '" + "" + "', '" +
                             status + "', '" + "" + "', '" + 1 + "', '" + 1
                             + "', '" + 1 + "', '" + 1 +
-                            "', '" + "" + "', '" + 1 + "' ) ";
+                            "', '" + "" + "', '" + 0 + "' ) ";
             Statement statement = co.createStatement();
             statement.executeUpdate(query);
         }
@@ -36,7 +39,7 @@ public class DataBase {
 
     //Обновление значения в базе данных
 
-    void update(String ID, String name, String newValue){
+     void update(String ID, String name, String newValue){
         try {
             String query =
                     "UPDATE users SET " +
@@ -248,5 +251,15 @@ public class DataBase {
 
     //Запись текущего опыта в БД
 
-    public void setExperience(String ID, int experience0){ update(ID, "heroExperience", String.valueOf(experience0));}
+    public void setExperience(String ID, int experience) {
+        var postFightExperience = experience + getExperience(ID);
+        if (postFightExperience >= 100) {
+            var giveLvl = experience / 100;
+            setLvl(ID, giveLvl + getLVL(ID));
+            update(ID, "heroExperience", String.valueOf(postFightExperience % 100 + getExperience(ID)));
+        } else {
+            update(ID, "heroExperience", String.valueOf(getExperience(ID) + experience));
+        }
+    }
+
 }

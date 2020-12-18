@@ -46,6 +46,7 @@ public class SetClassArcherCondition implements Condition {
         dataBase.setClass(chatId, "Archer");
         dataBase.setInventory(chatId, "Лук охотника");
         dataBase.setStatus(chatId, command);
+        dataBase.setExperience(chatId, hero.getHeroExperience());
     }
 
     @Override
