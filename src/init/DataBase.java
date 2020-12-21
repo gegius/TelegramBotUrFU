@@ -71,34 +71,34 @@ public class DataBase {
 
     //Получение данных из базы
 
-    String select(String ID, String request){
+    public String select(String primaryKey,  String request, String dataBase) {
         var content = "";
-        try{
+        try {
             Statement statement = co.createStatement();
             String query =
                     "SELECT *" +
-                            " FROM users " +
-                            "WHERE id = " + ID;
-            ResultSet rs = statement.executeQuery(query) ;
-            while (rs.next()){
+                            " FROM " + dataBase + " " +
+                            "WHERE id = " + primaryKey;
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
                 content = rs.getString(request);
             }
             rs.close();
             statement.close();
             return content;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return content;
         }
     }
 
+
     //Открытие базы данных
 
-    public void open(){
+    public void open(String database){
         try {
             Class.forName("org.sqlite.JDBC");
             co = DriverManager.getConnection(
-                    "jdbc:sqlite:users.db");
+                    "jdbc:sqlite:" + database+ ".db");
             System.out.println("Connected");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -108,7 +108,7 @@ public class DataBase {
     public String getClass(String ID){
 
         try {
-            return select(ID, "heroClass");
+            return select(ID, "heroClass","users");
         }
         catch (Exception e){
             return "None";
@@ -125,7 +125,7 @@ public class DataBase {
 
     public String getStatus(String ID){
         try{
-            return select(ID, "status");
+            return select(ID, "status","users");
         }
         catch (Exception e){
             return "";
@@ -142,7 +142,7 @@ public class DataBase {
 
     public String getGamePart(String ID){
         try{
-            return select(ID, "gamePart");
+            return select(ID, "gamePart","users");
         }
         catch (Exception e){
             return "";
@@ -159,7 +159,7 @@ public class DataBase {
 
     public int getHealth(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroHealth"));
+            return Integer.parseInt(select(ID, "heroHealth","users"));
         }
         catch (Exception e){
             return 0;
@@ -176,7 +176,7 @@ public class DataBase {
 
     public int getMana(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroMana"));
+            return Integer.parseInt(select(ID, "heroMana","users"));
         }
         catch (Exception e){
             return 0;
@@ -193,7 +193,7 @@ public class DataBase {
 
     public int getLVL(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroLevel"));
+            return Integer.parseInt(select(ID, "heroLevel","users"));
         }
         catch (Exception e){
             return 0;
@@ -210,7 +210,7 @@ public class DataBase {
 
     public int getDamage(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroDamage"));
+            return Integer.parseInt(select(ID, "heroDamage","users"));
         }
         catch (Exception e){
             return 0;
@@ -226,7 +226,7 @@ public class DataBase {
     //Получение инвенторя из БД (Пока не используется)
 
     public String[] getInventory(String ID){
-        var stringInv = select(ID, "heroInventory");
+        var stringInv = select(ID, "heroInventory","users");
         return stringInv.split(",");
 
 
@@ -242,7 +242,7 @@ public class DataBase {
 
     public int getExperience(String ID){
         try{
-            return Integer.parseInt(select(ID,"heroExperience"));
+            return Integer.parseInt(select(ID,"heroExperience","users"));
         }
         catch (Exception e){
             return 0;

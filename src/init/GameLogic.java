@@ -14,7 +14,7 @@ public class GameLogic extends Init {
     //Инициализация базы данных и обработка сообщений
 
     public void game(String command, String chatId, Map<String, Condition> cacheOfConditions){
-        dataBase.open();
+        dataBase.open("users");
         var status = dataBase.getStatus(chatId);
         Condition condition= new StartCondition();
         if(cacheOfConditions.containsKey(command)) {

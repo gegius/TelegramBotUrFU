@@ -1,5 +1,7 @@
 package hero;
 
+import java.util.ArrayList;
+
 public class Mage extends Hero implements Spells{
     public Mage(int heath, int mana, int lvl, int damage, int experience) {
         super(heath, mana, lvl, damage, experience);
@@ -54,25 +56,12 @@ public class Mage extends Hero implements Spells{
             return -1;
         }
     }
-
-    @Override
-    public String theFirstSpellDescription() {
-        return "Огненный шар";
-    }
-
-    @Override
-    public String theSecondSpellDescription() {
-        return "Магическая броня";
-    }
-
-    @Override
-    public String theUltimateDescription() {
-        return "Солнечный луч";
-    }
-
     public void theUltimate(){
         theUltimate(100);
     }
 
-
+    @Override
+    public ArrayList<Object> getSpellByName(String commandUser, String database) {
+        return super.getSpellByName(commandUser, database);
+    }
 }

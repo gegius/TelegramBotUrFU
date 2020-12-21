@@ -5,8 +5,4 @@ public interface Spells {
     int theFirstSpell( int costMana);
     double theSecondSpell( int costMana);
     int theUltimate(int costMana);
-    String theFirstSpellDescription();
-    String theSecondSpellDescription();
-    String theUltimateDescription();
-
 }

@@ -23,7 +23,7 @@ public class StartCondition implements Condition {
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(dataBase.getStatus(chatId).equals("")){
             message.setText("Здравствуйте, это бот для РПГ игры, пожалуйста, " +
                     "продолжите свою игру или начните сначала");

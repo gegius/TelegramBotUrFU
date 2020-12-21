@@ -1,5 +1,7 @@
 package hero;
 
+import java.util.ArrayList;
+
 public class Warrior extends Hero implements Spells {
 
     public Warrior(int heath, int mana, int lvl, int damage, int experience) {
@@ -53,24 +55,13 @@ public class Warrior extends Hero implements Spells {
             return -1;
         }
     }
-
-    @Override
-    public String theFirstSpellDescription() {
-        return "Удар мечом";
-    }
-
-    @Override
-    public String theSecondSpellDescription() {
-        return "Поднять щит";
-    }
-
-    @Override
-    public String theUltimateDescription() {
-        return "Критический удар";
-    }
-
     public void theUltimate(){
         theUltimate(80);
+    }
+
+    @Override
+    public ArrayList<Object> getSpellByName(String commandUser, String database) {
+        return super.getSpellByName(commandUser, database);
     }
 }
 

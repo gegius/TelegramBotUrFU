@@ -23,7 +23,7 @@ public class CreateHeroCondition implements Condition{
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getClass(chatId).equals("")){
             message.setText("В базе уже есть ваш персонаж, удалите старого или напишите \"/start\"");
             List<String> content = Collections.singletonList("/start");

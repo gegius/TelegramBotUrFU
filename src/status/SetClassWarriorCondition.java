@@ -26,7 +26,7 @@ public class SetClassWarriorCondition implements Condition{
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getStatus(chatId).equals(getNameOfCondition(command))) {
             changeDate(chatId, command);
         }

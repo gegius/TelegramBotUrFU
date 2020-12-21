@@ -23,7 +23,7 @@ public class MenaceToGuardCondition implements Condition {
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getClass(chatId).equals("") &&
                 (dataBase.getGamePart(chatId).equals("Подойти к главным воротам") ||
                 dataBase.getGamePart(chatId).equals(getNameOfCondition(command)))) {

@@ -23,7 +23,7 @@ public class RunToForestCondition implements Condition {
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         var gamePart = dataBase.getGamePart(chatId);
         if(!dataBase.getClass(chatId).equals("") &&
                 (gamePart.equals("Подойти к главным воротам") ||
