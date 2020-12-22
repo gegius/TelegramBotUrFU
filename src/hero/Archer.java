@@ -10,6 +10,7 @@ public class Archer extends Hero implements Spells {
     public Archer(int heath, int mana, int lvl, int damage, int experience) {
         super(heath, mana, lvl, damage, experience);
     }
+
     DataBase dataBase = new DataBase();
     SendMessage message = new SendMessage();
     SendAnswer answer = new SendAnswer();
@@ -65,13 +66,7 @@ public class Archer extends Hero implements Spells {
         }
     }
 
-    public void theUltimate(){
+    public void theUltimate() {
         theUltimate(80);
-    }
-
-
-    @Override
-    public ArrayList<Object> getSpellByName(String commandUser, String database) {
-        return super.getSpellByName(commandUser, database);
     }
 }

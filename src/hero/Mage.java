@@ -60,8 +60,4 @@ public class Mage extends Hero implements Spells{
         theUltimate(100);
     }
 
-    @Override
-    public ArrayList<Object> getSpellByName(String commandUser, String database) {
-        return super.getSpellByName(commandUser, database);
-    }
 }

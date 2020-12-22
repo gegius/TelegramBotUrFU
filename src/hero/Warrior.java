@@ -58,10 +58,5 @@ public class Warrior extends Hero implements Spells {
     public void theUltimate(){
         theUltimate(80);
     }
-
-    @Override
-    public ArrayList<Object> getSpellByName(String commandUser, String database) {
-        return super.getSpellByName(commandUser, database);
-    }
 }
 

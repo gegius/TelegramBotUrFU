@@ -2,6 +2,7 @@ package init;
 import hero.Hero;
 
 import java.sql.*;
+import java.util.HashMap;
 
 
 public class DataBase {
@@ -71,14 +72,14 @@ public class DataBase {
 
     //Получение данных из базы
 
-    public String select(String primaryKey,  String request, String dataBase) {
+     String select(String ID,  String request) {
         var content = "";
         try {
             Statement statement = co.createStatement();
             String query =
                     "SELECT *" +
-                            " FROM " + dataBase + " " +
-                            "WHERE id = " + primaryKey;
+                            " FROM users " +
+                            "WHERE id = " + ID;
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 content = rs.getString(request);
@@ -86,9 +87,50 @@ public class DataBase {
             rs.close();
             statement.close();
             return content;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return content;
         }
+    }
+
+    public HashMap<String,Object> getInfoFromSpells(String spellName){
+        HashMap<String,Object> spell = new HashMap<>();
+        try {
+            Statement statement = co.createStatement();
+            String query =
+                    "SELECT * FROM spells Where id = " + spellName;
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                spell.put("spellDamage",rs.getInt("spellDamage"));
+                spell.put("spellBlock",rs.getInt("spellBlock"));
+                spell.put("spellManaCost",rs.getInt("spellManaCost"));
+                spell.put("spellDescription",rs.getString("spellDescription"));
+                spell.put("spellHeroName",rs.getString("spellHeroName"));
+            }
+        }
+            catch (Exception e) {
+                return null;}
+        return spell;
+    }
+
+    public HashMap<String,Object> getInfoFromInventory(String itemName){
+        HashMap<String,Object> item = new HashMap<>();
+        try {
+            Statement statement = co.createStatement();
+            String query =
+                    "SELECT * FROM inventory Where id = " + itemName;
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                item.put("itemDamage",rs.getInt("itemDamage"));
+                item.put("itemBlock",rs.getInt("itemBlock"));
+                item.put("itemBaffMana",rs.getInt("itemBaffMana"));
+                item.put("itemBaffHp",rs.getInt("itemBaffHP"));
+                item.put("spellDescription",rs.getString("itemDescription"));
+            }
+        }
+        catch (Exception e) {
+            return null;}
+        return item;
     }
 
 
@@ -105,10 +147,11 @@ public class DataBase {
         }
     }
 
+
     public String getClass(String ID){
 
         try {
-            return select(ID, "heroClass","users");
+            return select(ID, "heroClass");
         }
         catch (Exception e){
             return "None";
@@ -125,7 +168,7 @@ public class DataBase {
 
     public String getStatus(String ID){
         try{
-            return select(ID, "status","users");
+            return select(ID, "status");
         }
         catch (Exception e){
             return "";
@@ -142,7 +185,7 @@ public class DataBase {
 
     public String getGamePart(String ID){
         try{
-            return select(ID, "gamePart","users");
+            return select(ID, "gamePart");
         }
         catch (Exception e){
             return "";
@@ -159,7 +202,7 @@ public class DataBase {
 
     public int getHealth(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroHealth","users"));
+            return Integer.parseInt(select(ID, "heroHealth"));
         }
         catch (Exception e){
             return 0;
@@ -176,7 +219,7 @@ public class DataBase {
 
     public int getMana(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroMana","users"));
+            return Integer.parseInt(select(ID, "heroMana"));
         }
         catch (Exception e){
             return 0;
@@ -193,7 +236,7 @@ public class DataBase {
 
     public int getLVL(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroLevel","users"));
+            return Integer.parseInt(select(ID, "heroLevel"));
         }
         catch (Exception e){
             return 0;
@@ -210,7 +253,7 @@ public class DataBase {
 
     public int getDamage(String ID){
         try {
-            return Integer.parseInt(select(ID, "heroDamage","users"));
+            return Integer.parseInt(select(ID, "heroDamage"));
         }
         catch (Exception e){
             return 0;
@@ -226,7 +269,7 @@ public class DataBase {
     //Получение инвенторя из БД (Пока не используется)
 
     public String[] getInventory(String ID){
-        var stringInv = select(ID, "heroInventory","users");
+        var stringInv = select(ID, "heroInventory");
         return stringInv.split(",");
 
 
@@ -242,7 +285,7 @@ public class DataBase {
 
     public int getExperience(String ID){
         try{
-            return Integer.parseInt(select(ID,"heroExperience","users"));
+            return Integer.parseInt(select(ID,"heroExperience"));
         }
         catch (Exception e){
             return 0;
