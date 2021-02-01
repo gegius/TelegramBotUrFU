@@ -14,7 +14,8 @@ public class SetClassArcherCondition implements Condition {
     SendMessage message = new SendMessage();
     SendAnswer answer = new SendAnswer();
     public Condition getNextCondition(String lastStatus, String command){
-        if(command.equals(getNameOfCondition(command)) &&
+        if(command.equals(getNameOfCondition(command
+        )) &&
                 (lastStatus.equals("Создать нового персонажа") ||
                 lastStatus.equals(command))) {
             return null;
@@ -25,7 +26,7 @@ public class SetClassArcherCondition implements Condition {
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getStatus(chatId).equals(getNameOfCondition(command))) {
             changeDate(chatId, command);
         }
@@ -37,14 +38,15 @@ public class SetClassArcherCondition implements Condition {
 
     @Override
     public void changeDate(String chatId, String command) {
-        Hero hero = new Archer(150 , 100 , 1 , 15);
-        dataBase.setMana(chatId, hero.get_Mana());
-        dataBase.setHealth(chatId, hero.get_Heath());
-        dataBase.setXP(chatId, hero.get_Lvl());
-        dataBase.setDamage(chatId, hero.get_Damage());
+        Hero hero = new Archer(150 , 100 , 1 , 15, 0);
+        dataBase.setMana(chatId, hero.getHeroMana());
+        dataBase.setHealth(chatId, hero.getHeroHeath());
+        dataBase.setLvl(chatId, hero.getHeroLvl());
+        dataBase.setDamage(chatId, hero.getHeroDamage());
         dataBase.setClass(chatId, "Archer");
         dataBase.setInventory(chatId, "Лук охотника");
         dataBase.setStatus(chatId, command);
+        dataBase.setExperience(chatId, hero.getHeroExperience());
     }
 
     @Override

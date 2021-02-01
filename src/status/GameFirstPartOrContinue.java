@@ -23,7 +23,7 @@ public class GameFirstPartOrContinue implements Condition{
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getClass(chatId).equals("")){
             if(dataBase.getGamePart(chatId).equals("")){
                 message.setText("Лотос цветёт дважды, наш герой снова решил" + "\n" +

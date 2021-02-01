@@ -22,7 +22,7 @@ public class DeleteProgressCondition implements Condition{
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if (!dataBase.getClass(chatId).equals("")) {
             changeDate(chatId, command);
             message.setText("Ваш прогресс и герой были жестоко уничтожены по вашей воле," +

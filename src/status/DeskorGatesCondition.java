@@ -22,7 +22,7 @@ public class DeskorGatesCondition implements Condition {
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getClass(chatId).equals("")) {
             message.setText("Подходя ко входу вы видите двух стражников бурно" +
                     " о чем-то спорящих.\n\nСтражник 1: -Я тебе говорю, издревна мужчин" +

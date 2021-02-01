@@ -21,7 +21,7 @@ public class MenuCondition implements Condition {
 
     @Override
     public void sendMessage(String chatId, String command) {
-        dataBase.open();
+        dataBase.open("users");
         if(!dataBase.getClass(chatId).equals("")) {
             mainMenu(chatId);
             message.setText("Переход в меню игры");

@@ -1,5 +1,9 @@
 package init;
+import hero.Hero;
+
 import java.sql.*;
+import java.util.HashMap;
+
 
 public class DataBase {
     Connection co;
@@ -10,11 +14,11 @@ public class DataBase {
         try {
             String query =
                     "INSERT INTO users (id, heroClass, status, gamePart, heroHealth," +
-                            " heroMana, heroLevel, heroDamage, heroInventory) " +
+                            " heroMana, heroLevel, heroDamage, heroInventory, heroExperience) " +
                             "VALUES ('" + id + "', '" + "" + "', '" +
                             status + "', '" + "" + "', '" + 1 + "', '" + 1
                             + "', '" + 1 + "', '" + 1 +
-                            "', '" + "" + "') ";
+                            "', '" + "" + "', '" + 0 + "' ) ";
             Statement statement = co.createStatement();
             statement.executeUpdate(query);
         }
@@ -36,7 +40,7 @@ public class DataBase {
 
     //Обновление значения в базе данных
 
-    void update(String ID, String name, String newValue){
+     void update(String ID, String name, String newValue){
         try {
             String query =
                     "UPDATE users SET " +
@@ -68,39 +72,81 @@ public class DataBase {
 
     //Получение данных из базы
 
-    String select(String ID, String request){
+     String select(String ID,  String request) {
         var content = "";
-        try{
+        try {
             Statement statement = co.createStatement();
             String query =
                     "SELECT *" +
                             " FROM users " +
                             "WHERE id = " + ID;
-            ResultSet rs = statement.executeQuery(query) ;
-            while (rs.next()){
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
                 content = rs.getString(request);
             }
             rs.close();
             statement.close();
             return content;
         }
-        catch (Exception e){
+        catch (Exception e) {
             return content;
         }
     }
 
+    public HashMap<String,Object> getInfoFromSpells(String spellName){
+        HashMap<String,Object> spell = new HashMap<>();
+        try {
+            Statement statement = co.createStatement();
+            String query =
+                    "SELECT * FROM spells Where id = " + spellName;
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                spell.put("spellDamage",rs.getInt("spellDamage"));
+                spell.put("spellBlock",rs.getInt("spellBlock"));
+                spell.put("spellManaCost",rs.getInt("spellManaCost"));
+                spell.put("spellDescription",rs.getString("spellDescription"));
+                spell.put("spellHeroName",rs.getString("spellHeroName"));
+            }
+        }
+            catch (Exception e) {
+                return null;}
+        return spell;
+    }
+
+    public HashMap<String,Object> getInfoFromInventory(String itemName){
+        HashMap<String,Object> item = new HashMap<>();
+        try {
+            Statement statement = co.createStatement();
+            String query =
+                    "SELECT * FROM inventory Where id = " + itemName;
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                item.put("itemDamage",rs.getInt("itemDamage"));
+                item.put("itemBlock",rs.getInt("itemBlock"));
+                item.put("itemBaffMana",rs.getInt("itemBaffMana"));
+                item.put("itemBaffHp",rs.getInt("itemBaffHP"));
+                item.put("spellDescription",rs.getString("itemDescription"));
+            }
+        }
+        catch (Exception e) {
+            return null;}
+        return item;
+    }
+
+
     //Открытие базы данных
 
-    public void open(){
+    public void open(String database){
         try {
             Class.forName("org.sqlite.JDBC");
             co = DriverManager.getConnection(
-                    "jdbc:sqlite:users.db");
+                    "jdbc:sqlite:" + database+ ".db");
             System.out.println("Connected");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     public String getClass(String ID){
 
@@ -188,7 +234,7 @@ public class DataBase {
 
     //Получение текущего опыта из БД
 
-    public int getXP(String ID){
+    public int getLVL(String ID){
         try {
             return Integer.parseInt(select(ID, "heroLevel"));
         }
@@ -199,7 +245,7 @@ public class DataBase {
 
     //Запись текущего опыта в БД
 
-    public void setXP(String ID, int lvl){
+    public void setLvl(String ID, int lvl){
         update(ID, "heroLevel", String.valueOf(lvl));
     }
 
@@ -234,4 +280,29 @@ public class DataBase {
     public void setInventory(String ID, String item){
         update(ID, "heroInventory", String.valueOf(item));
     }
+
+    // Получение текущего уровня героя из БД
+
+    public int getExperience(String ID){
+        try{
+            return Integer.parseInt(select(ID,"heroExperience"));
+        }
+        catch (Exception e){
+            return 0;
+        }
+    }
+
+    //Запись текущего опыта в БД
+
+    public void setExperience(String ID, int experience) {
+        var postFightExperience = experience + getExperience(ID);
+        if (postFightExperience >= 100) {
+            var giveLvl = experience / 100;
+            setLvl(ID, giveLvl + getLVL(ID));
+            update(ID, "heroExperience", String.valueOf(postFightExperience % 100 + getExperience(ID)));
+        } else {
+            update(ID, "heroExperience", String.valueOf(getExperience(ID) + experience));
+        }
+    }
+
 }
